@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handyman</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/50f0766836.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div id="header">
+      <div class="container">
+        <nav>
+          <img src="images/l.png" class="logo" />
+          <li><a href="#header">Home</a></li>
+          <li><a href="search.html">Services</a></li>
+          <li><a href="#contact">Contact us</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="reg.html">Register</a></li>
+        </nav>
+        <div>
+          <div class="header-text">
+            <h1>Handyman Haven</h1>
+            <p>Looking for a fix, D.I.Y.</p>
+            <h1>Search for professionals in your area</h1>
+            <marquee
+              >Handyman haven. Bringing local handymen in your area to
+              doorstep</marquee
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- --------------services-------------- -->
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">Services.</h1>
+        <div class="services-list">
+          <div>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <h2>Search</h2>
+            <p>Search from our list of handymen in your area</p>
+            <a href="search.html">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-briefcase"></i>
+            <h2>Seek workers</h2>
+            <p>Post a task or job in detail for workers in need of work</p>
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ----------abouut--------- -->
+    <div id="about">
+      <div class="container">
+        <div class="row">
+          <div class="about-col-1">
+            <img src="images/y.jpg" class="me" />
+          </div>
+          <div class="about-col-2">
+            <h1 class="sub-title">About me.</h1>
+            <p>
+              Kadiri Victor. Student of the department of Computer Science,
+              Uniben. This is my project.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ---------contact-------- -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="contact-left">
+            <h1 class="sub-title">Contact Us.</h1>
+            <p><i class="fa-solid fa-paper-plane"></i>contact@example.com</p>
+            <p><i class="fa-solid fa-phone"></i>0123456789</p>
+            <div class="social-icons">
+              <a href=""><i class="fa-brands fa-facebook"></i></a>
+              <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href=""><i class="fa-brands fa-square-instagram"></i></a>
+              <a href=""><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="contact-right">
+            <form name="submit-to-google-sheet">
+              <input type="text" name="Name" placeholder="Your Name" required />
+              <input
+                type="email"
+                name="Email"
+                placeholder="Your Email"
+                required
+              />
+              <textarea
+                name="Message"
+                rows="6"
+                placeholder="Your Message"
+              ></textarea>
+              <button type="submit" class="btn btn2">Submit.</button>
+            </form>
+            <span id="msg">Message Sent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>All rights reserved. Copyright 2024</p>
+    </div>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbxRq_mYp2E0YByhBsSIlVpaMCP1MFPyCy9pma5_nyskFGVsqBsh8CV5Xnhgi19gWlP4Qg/exec";
+      const form = document.forms["submit-to-google-sheet"];
+      const msg = document.getElementById("msg");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            msg.innerHTML = "Message Sent Successfully";
+            setTimeout(function () {
+              msg.innerHTML = "";
+            }, 5000);
+            form.reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+  </body>
+</html>

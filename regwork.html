@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="#">
+</head>
+<style>
+    body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:gray;
+    color: #fff;
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.regworkform{
+    margin: 0 20px;
+    width: 70%;
+    align-self: center;
+    flex-basis: auto;
+    
+}
+    img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 25%;
+    padding: 15px;
+  }
+  form{
+    background-color: #262626;
+    color: #ff004f;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    display: flex;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+form input, form textarea{
+    border: 0;
+    outline: none;
+    background: wheat;
+    margin: 15px;
+    color: #fff;
+    font-size: large;
+    font-size-adjust: inherit;
+    border-radius: 6px;
+}
+button{
+    display: block;
+    margin: 50px;
+    width: fit-content;
+    border: 1px solid #ff004f;
+    padding: 14px 50px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    transition: background 0.5s;
+}
+button:hover{
+    background: #ff004f;
+}
+</style>
+
+<body>
+    <h1>Registration Form</h1>
+    <div id="profile">
+        <div class="profile-image">
+            <label for="photo">Profile Image</label>
+            <input type="file" name="photo" id="photo"
+            onchange="displayProfilePic()">
+            <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
+        </div>
+        <div class="regworkform">
+            <form >
+                <table>
+                    <tr>
+                        <td>
+                            Name:
+                        </td>
+                        <td>
+                            <input type="text" name="name" placeholder= "Name" id="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="password" name="password" placeholder="Password" id="password">
+                        </td>
+                    </tr>
+                    <div class="gender">
+                        <tr>
+                            <td>
+                                Gender:
+                            </td>
+                            <td>
+                                Male <input type="radio" name="gender" value="male" id="male">
+                                Female<input type="radio" name="gender" value="female" id="female">
+                            </td>
+                        </tr>
+                    </div>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="email" name="email" placeholder="Email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Phone Number:
+                        </td>
+                        <td>
+                            <input type="number" name="number"placeholder="Your Number" id="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Address:
+                        </td>
+                        <td>
+                            <input type="text" name="Address" placeholder="Your Address" id="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Occupation:
+                        </td>
+                        <td>
+                            <input type="text" name="Occupation" placeholder="Occupation" id="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Registering as:
+                        </td>
+                        <td>
+                            Firm<input type="radio" name="Reg as" value="Firm" id="Firm">
+                            Individual<input type="radio" name="Reg as" value="Individual" id="Individual">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name of Firm/Workplace:
+                        </td>
+                        <td>
+                            <input type="text" name="Workplace" id="Workplace">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Areas of Specialization:
+                        </td>
+                        <td>
+                            Furniture Assembly<input type="checkbox" name="furniture assembly" id="aos">
+                            Plumbing<input type="checkbox" name="plumbing" id="aos">
+                            Carpentry<input type="checkbox" name="carpentry" id="aos">
+                            Bathroom Remodeling<input type="checkbox" name="BathroomRemodeling" id="aos">
+                            Drywall Repairs<input type="checkbox" name="DrywallRepairs" id="aos">
+                            Home Repairs<input type="checkbox" name="HomeRepairs" id="aos">
+                            Painting<input type="checkbox" name="Painting" id="aos">
+                            Kitchen Remodeling<input type="checkbox" name="KitchenRemodeling" id="aos">
+                            Electricals<input type="checkbox" name="Electricals" id="aos">
+                            Tiles Installation<input type="checkbox" name="TilesInstalation" id="aos">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Preferred Work Hours:
+                        </td>
+                        <td>
+                            From<input type="time" name="From" id="To">To<input type="time" name="To" id="To">
+                            
+                        </td>
+                    </tr>
+                    
+                </table>
+            </form>
+        </div>
+        <button type="submit">Submit.</button>
+    </div>
+    <script>
+        function displayProfilePic() {
+          const input = document.getElementById('photo');
+          const img = document.getElementById('profilePic');
+          
+          if (input.files && input.files[0]) {
+            const reader = new FileReader();
+    
+            reader.onload = function (e) {
+              img.src = e.target.result;
+              img.style.display = 'block';
+            };
+    
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+    
+        function submitForm() {
+          const formData = new FormData(document.getElementById('profileForm'));
+    
+          for (const pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+          }
+        }
+      </script>
+</body>
+</html>
