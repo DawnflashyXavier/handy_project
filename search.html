@@ -136,23 +136,43 @@
       <p>All rights reserved. Copyright 2024</p>
     </div>
     <script>
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbxRq_mYp2E0YByhBsSIlVpaMCP1MFPyCy9pma5_nyskFGVsqBsh8CV5Xnhgi19gWlP4Qg/exec";
-      const form = document.forms["submit-to-google-sheet"];
-      const msg = document.getElementById("msg");
+  const storedData = JSON.parse(localStorage.getItem('userData')) || [];
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        fetch(scriptURL, { method: "POST", body: new FormData(form) })
-          .then((response) => {
-            msg.innerHTML = "Message Sent Successfully";
-            setTimeout(function () {
-              msg.innerHTML = "";
-            }, 5000);
-            form.reset();
-          })
-          .catch((error) => console.error("Error!", error.message));
-      });
+  // Create a new section for displaying user data
+  const userDataSection = document.createElement('section');
+  userDataSection.classList.add('user-data-section');
+
+  // Create a heading for the section
+  const heading = document.createElement('h2');
+  heading.textContent = 'Registered Users';
+  userDataSection.appendChild(heading);
+
+  // Loop through the stored data and create elements for each user
+  storedData.forEach((user, index) => {
+    const userDiv = document.createElement('div');
+    userDiv.classList.add('user-card');
+
+    // Create elements for each user property and append them to the userDiv
+    Object.entries(user).forEach(([key, value]) => {
+      if (key !== 'profileImage') {
+        const p = document.createElement('p');
+        p.textContent = `${key}: ${value}`;
+        userDiv.appendChild(p);
+      } else {
+        const img = document.createElement('img');
+        img.src = `data:image/jpeg;base64,${value}`;
+        img.alt = 'Profile Image';
+        img.classList.add('profile-image');
+        userDiv.appendChild(img);
+      }
+    });
+
+    // Append the userDiv to the userDataSection
+    userDataSection.appendChild(userDiv);
+  });
+
+  // Append the userDataSection to the body
+  document.body.appendChild(userDataSection);
     </script>
   </body>
 </html>
