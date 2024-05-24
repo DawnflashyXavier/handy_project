@@ -187,42 +187,34 @@
 </body>
 
 <script>
-const form = document.getElementById('registration-form');
-form.addEventListener('submit', handleFormSubmit);
+  const form = document.getElementById('registration-form');
+  form.addEventListener('submit', handleFormSubmit);
 
-function handleFormSubmit(event) {
-  event.preventDefault(); // Prevent the default form submission behavior
+  function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-  // Get form data
-  const formData = new FormData(event.target);
-  const userData = {};
+    // Get form data
+    const formData = new FormData(event.target);
+    const userData = {};
 
-  // Convert FormData to an object
-  for (const [name, value] of formData.entries()) {
-    userData[name] = value;
+    // Convert FormData to an object
+    for (const [name, value] of formData.entries()) {
+      if (name === 'specialization') {
+        // If the field is 'specialization', store it as an array
+        userData[name] = Array.isArray(value) ? value : [value];
+      } else {
+        userData[name] = value;
+      }
+    }
+
+    // Store form data in local storage
+    const storedData = JSON.parse(localStorage.getItem('userData')) || [];
+    storedData.push(userData);
+    localStorage.setItem('userData', JSON.stringify(storedData));
+
+    // Reset the form
+    event.target.reset();
   }
-
-  // Store form data in local storage
-  const storedData = JSON.parse(localStorage.getItem('userData')) || [];
-  storedData.push(userData);
-  localStorage.setItem('userData', JSON.stringify(storedData));
-
-  // Reset the form
-  event.target.reset();
-}
-
-function mockRestAPI(endpoint) {
-  const storedData = JSON.parse(localStorage.getItem('userData')) || [];
-
-  switch (endpoint) {
-    case 'users':
-      return storedData;
-    default:
-      return [];
-  }
-}
-
-
 </script>
 
 </html>
