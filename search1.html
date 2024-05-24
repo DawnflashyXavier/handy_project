@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handyman</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/50f0766836.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div id="header">
+      <div class="container">
+        <nav>
+          <img src="images/l.png" class="logo" />
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact us</a></li>
+          <li><a href="reg.html">Register</a></li>
+        </nav>
+        <div>
+          <div class="header-text">
+            <p>Search according to the list.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- --------------services-------------- -->
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">Registered Services.</h1>
+        <div class="services-list">
+          <div>
+            <i class="fa-solid fa-couch"></i>
+            <h2>Furniture Assembly</h2>
+            <a href="">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-wrench"></i>
+            <h2>Plumbing</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-hammer"></i>
+            <h2>Carpentry</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-water"></i>
+            <h2>Gutter Cleaning</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-toolbox"></i>
+            <h2>Remodeling</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-toilet"></i>
+            <h2>Bathroom Remodeling</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-trowel-bricks"></i>
+            <h2>Drywall Repair</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-house"></i>
+            <h2>Home Repairs</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-lightbulb"></i>
+            <h2>Electrical</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-paint-roller"></i>
+            <h2>Painting</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-kitchen-set"></i>
+            <h2>Kitchen Remodeling</h2>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-solid fa-square"></i>
+            <h2>Tiles Installation</h2>
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ---------contact-------- -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="contact-left">
+            <h1 class="sub-title">Contact Us.</h1>
+            <p><i class="fa-solid fa-paper-plane"></i>contact@example.com</p>
+            <p><i class="fa-solid fa-phone"></i>0123456789</p>
+            <div class="social-icons">
+              <a href=""><i class="fa-brands fa-facebook"></i></a>
+              <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href=""><i class="fa-brands fa-square-instagram"></i></a>
+              <a href=""><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="contact-right">
+            <form name="submit-to-google-sheet">
+              <input type="text" name="Name" placeholder="Your Name" required />
+              <input
+                type="email"
+                name="Email"
+                placeholder="Your Email"
+                required
+              />
+              <textarea
+                name="Message"
+                rows="6"
+                placeholder="Your Message"
+              ></textarea>
+              <button type="submit" class="btn btn2">Submit.</button>
+            </form>
+            <span id="msg">Sending ...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>All rights reserved. Copyright 2024</p>
+    </div>
+    <script>
+      const storedData = JSON.parse(localStorage.getItem('userData')) || [];
+
+// Get all the service divs
+const serviceDivs = document.querySelectorAll('.services-list > div');
+
+// Loop through each service div
+serviceDivs.forEach(serviceDiv => {
+  const serviceTitle = serviceDiv.querySelector('h2').textContent.toLowerCase();
+
+  // Find the registered users for the current service
+  const registeredUsers = storedData.filter(user => {
+    const specializations = user.specialization;
+    if (Array.isArray(specializations)) {
+      return specializations.some(spec => spec.toLowerCase() === serviceTitle);
+    } else {
+      return specializations.toLowerCase() === serviceTitle;
+    }
+  });
+
+  // Create a section to display the registered users for the current service
+  const userSection = document.createElement('section');
+  userSection.classList.add('user-section');
+
+  // Create a heading for the section
+  const heading = document.createElement('h3');
+  heading.textContent = `Registered Users for ${serviceTitle.charAt(0).toUpperCase() + serviceTitle.slice(1)}`;
+  userSection.appendChild(heading);
+
+  // Loop through the registered users and create elements for each user
+  registeredUsers.forEach(user => {
+    const userDiv = document.createElement('div');
+    userDiv.classList.add('user-card');
+
+    // Create elements for each user property and append them to the userDiv
+    Object.entries(user).forEach(([key, value]) => {
+      if (key !== 'profileImage' && key !== 'specialization') {
+        const p = document.createElement('p');
+        p.textContent = `${key}: ${value}`;
+        userDiv.appendChild(p);
+      } else if (key === 'profileImage') {
+        const img = document.createElement('img');
+        img.src = `data:image/jpeg;base64,${value}`;
+        img.alt = 'Profile Image';
+        img.classList.add('profile-image');
+        userDiv.appendChild(img);
+      }
+    });
+
+    // Append the userDiv to the userSection
+    userSection.appendChild(userDiv);
+  });
+
+  // Append the userSection to the serviceDiv
+  serviceDiv.appendChild(userSection);
+});
+      </script>
+  </body>
+</html>
